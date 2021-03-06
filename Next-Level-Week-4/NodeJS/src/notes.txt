@@ -1,0 +1,89 @@
+Testes Automatizados
+
+1 - Testes Unitários (teste Back-end)
+
+2 - Testes de integração (teste Back-end)
+
+    -> request -> routes -> controller -> repository
+    <-repository <- controller <- response
+
+3- Ponta a Ponta (E2E) (testes Front-end)
+
+///////// First.test.ts ///////////////////////
+
+    describe("First" , () => {
+        it("deve ser possível somar 2 números", () => {
+            expect(2 + 2).toBe(4);
+        });
+
+        it("deve ser possível somar 2 números", () => {
+            expect(2 + 2).not.toBe(5);
+        });
+    });
+///////////////////////////////////
+    Postman rotas :
+
+    http://localhost:3333/users
+
+        POST 
+
+        BODY - raw - JSON
+
+        {
+            "name": "Bambi",
+            "email": "bambi@disney.com.br"
+        }
+
+        SEND
+
+    http://localhost:3333/surveys
+
+        POST 
+
+        BODY - raw - JSON
+
+        {
+            "title": "Queremos ourvir sua opinião",
+            "description": "De 0 a 10, quanto você recomendaria a Rockeatseat?"
+        }
+
+        SEND
+
+    http://localhost:3333/surveys
+
+        GET
+
+        SEND
+
+    http://localhost:3333/sendMail
+
+        POST 
+
+        BODY - raw - JSON
+
+        {
+            "email": "email1@teste.com.br",
+            "survey_id": "38bc367f-8bcf-45ce-8a32-ac72aa79704f"
+        }
+
+        SEND
+
+    http://localhost:3333/nps/38bc367f-8bcf-45ce-8a32-ac72aa79704f
+
+        GET
+
+        SEND
+
+    http://localhost:3333/answers/10?u=038a241f-eb7d-4d79-b6f1-75de0bbdec11
+
+/////////////////////////////////////////////////////////////////////
+    dentro do arquivo package.json = "test": "set NODE_ENV=test jest"
+                                           : "cross-env NODE_ENV=test jest"
+
+    PACKAGE JSON
+        "scripts": {
+                "dev": "ts-node-dev --transpile-only --ignore-watch node_nodules src/server.ts",
+                "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
+                "test": "cross-env NODE_ENV=test jest",
+                "posttest": "rm ./src/database/database.test.sqlite"
+            },
